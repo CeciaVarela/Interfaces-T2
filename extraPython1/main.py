@@ -67,3 +67,12 @@ def superposicion (lista1, lista2):
                 return True
     return False
 print(superposicion("otro","sala"))
+def generar_n_caracteres(veces,letra):
+	letra = letra[0]
+	res = ""
+	for i in range(0,veces):
+		res = res+letra
+	print (res)
+
+print("-----------------------------9")
+print(generar_n_caracteres(3,"a"))
