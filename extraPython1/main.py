@@ -36,3 +36,13 @@ def es_vocal (c):
 
 caracter = input("introduce una letra por favor: ")
 print(es_vocal(caracter))
+
+n1 = float(input("Intro número uno: "))
+n2 = float(input("Intro numero dos: "))
+suma = n1+n2
+print("La suma es: ", suma)
+
+n1 = float(input("Intro número uno: "))
+n2 = float(input("Intro numero dos: "))
+mult = n1*n2
+print("La suma es: ", mult)
