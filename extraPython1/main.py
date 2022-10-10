@@ -12,3 +12,14 @@ def max_de_tres(a,b,c):
     if((c > a) and (c > b)):
         return c
 print(max_de_tres(16,6,2));
+def longitud(cadena):
+	contador = 0
+	while True:
+		try:
+			cadena[contador]
+			contador += 1
+		except IndexError:
+			break
+	return contador
+ 
+print(longitud("longitud de la cadena del ejercicio 3"))
