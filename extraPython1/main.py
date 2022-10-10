@@ -23,3 +23,16 @@ def longitud(cadena):
 	return contador
  
 print(longitud("longitud de la cadena del ejercicio 3"))
+
+
+def es_vocal (c):
+    if c == "a" or c == "e" or c == "i" or c == "o" or c== "u":
+        return True
+
+    elif c == "A" or c == "E" or c == "I" or c == "O" or c == "U":
+        return True
+
+    return False
+
+caracter = input("introduce una letra por favor: ")
+print(es_vocal(caracter))
