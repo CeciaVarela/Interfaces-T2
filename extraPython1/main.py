@@ -52,3 +52,8 @@ txt=list(palabra)
 txt.reverse()
 cadena = " ".join(txt)
 print ("Del revés: ",cadena)
+word = input("Comprobar si es un palíndromo: ")
+if str(word) == str(word)[::-1] :
+    print("si es un palíndromo")
+else:
+    print("no es un palíndromo")
