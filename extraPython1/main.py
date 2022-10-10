@@ -46,3 +46,9 @@ n1 = float(input("Intro número uno: "))
 n2 = float(input("Intro numero dos: "))
 mult = n1*n2
 print("La suma es: ", mult)
+
+palabra =input("dime una frase : ")
+txt=list(palabra)
+txt.reverse()
+cadena = " ".join(txt)
+print ("Del revés: ",cadena)
