@@ -57,3 +57,13 @@ if str(word) == str(word)[::-1] :
     print("si es un palíndromo")
 else:
     print("no es un palíndromo")
+
+print("-----------------------------8")
+
+def superposicion (lista1, lista2):
+    for i in lista1:
+        for x in lista2:
+            if i == x:
+                return True
+    return False
+print(superposicion("otro","sala"))
