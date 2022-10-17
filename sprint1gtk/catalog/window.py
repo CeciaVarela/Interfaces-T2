@@ -1,4 +1,5 @@
 import gi
+from gi.repository import GdkPixbuf
 gi.require_version("Gtk","3.0")
 from gi.repository import Gtk
 from cell import Cell 
@@ -23,11 +24,26 @@ class MainWindow(Gtk.Window):
 		scrolled.add(self.flowbox)
 		self.add(scrolled)
 		
-		cell_one = Cell("Mapache", Gtk.Image.new_from_file("data/edited/animal1.jpg"))
-		cell_two = Cell("Lobo",Gtk.Image.new_from_file("data/edited/animal2.jpg"))
-		cell_three = Cell("Oso panda",Gtk.Image.new_from_file("data/edited/animal3.jpg"))
-		cell_four = Cell("Tucán",Gtk.Image.new_from_file("data/edited/animal4.jpg"))
-		cell_five = Cell("Vaca",Gtk.Image.new_from_file("data/edited/animal5.jpg"))
+		image = Gtk.Image()
+		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal1.jpg", 200, 200, False)
+		image.set_from_pixbuf(pixbuf)
+		cell_one = Cell("Mapache",image)
+		image = Gtk.Image()
+		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal2.jpg", 200, 200, False)
+		image.set_from_pixbuf(pixbuf)
+		cell_two = Cell("Lobo",image)
+		image = Gtk.Image()
+		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal3.jpg", 200, 200, False)
+		image.set_from_pixbuf(pixbuf)
+		cell_three = Cell("Oso panda",image)
+		image = Gtk.Image()
+		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal4.jpg", 200, 200, False)
+		image.set_from_pixbuf(pixbuf)
+		cell_four = Cell("Tucán",image)
+		image = Gtk.Image()
+		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal5.jpg", 200, 200, False)
+		image.set_from_pixbuf(pixbuf)
+		cell_five = Cell("Vaca",image)
 		self.flowbox.add(cell_one)
 		self.flowbox.add(cell_two)
 		self.flowbox.add(cell_three)
