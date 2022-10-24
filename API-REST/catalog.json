@@ -1,4 +1,4 @@
-{   
+[   
     {
         "name": "Mapache",
         "description": "Es un animal de tamaño similar al de un gato, que mide entre 40 y 70 centímetros de longitud y pesa entre 2 y 14 kilogramos.",
@@ -24,4 +24,4 @@
         "description": "Es un animal mamífero, nace vivo del vientre de la madre. Es también vertebrado porque tiene huesos y herbívoro porque se alimenta de hierba y pastos. Es un animal muy grande y pesado. Tiene cuatro patas y un rabo.",
         "image_url": "https://raw.githubusercontent.com/lsilvag22/Desarrollo_de_interfaces/main/API-REST/animal5.jpg"
     }
-}
+]
