@@ -7,11 +7,11 @@ from cell import Cell
 class MainWindow(Gtk.Window):
 	flowbox = Gtk.FlowBox()
 	
-	def __init__(self):
+	def __init__(self,data_source):
 		super().__init__(title="Catálogo")
 		self.connect("destroy",Gtk.main_quit)
 		self.set_border_width(15)
-		self.set_default_size(200,200)
+		self.set_default_size(400,400)
 		
 		header = Gtk.HeaderBar(title="Animales")
 		header.set_subtitle("Catálogo 2022")
@@ -24,28 +24,6 @@ class MainWindow(Gtk.Window):
 		scrolled.add(self.flowbox)
 		self.add(scrolled)
 		
-		image = Gtk.Image()
-		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal1.jpg", 200, 200, False)
-		image.set_from_pixbuf(pixbuf)
-		cell_one = Cell("Mapache",image)
-		image = Gtk.Image()
-		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal2.jpg", 200, 200, False)
-		image.set_from_pixbuf(pixbuf)
-		cell_two = Cell("Lobo",image)
-		image = Gtk.Image()
-		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal3.jpg", 200, 200, False)
-		image.set_from_pixbuf(pixbuf)
-		cell_three = Cell("Oso panda",image)
-		image = Gtk.Image()
-		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal4.jpg", 200, 200, False)
-		image.set_from_pixbuf(pixbuf)
-		cell_four = Cell("Tucán",image)
-		image = Gtk.Image()
-		pixbuf = GdkPixbuf.Pixbuf.new_from_file_at_scale("data/unedited/animal5.jpg", 200, 200, False)
-		image.set_from_pixbuf(pixbuf)
-		cell_five = Cell("Vaca",image)
-		self.flowbox.add(cell_one)
-		self.flowbox.add(cell_two)
-		self.flowbox.add(cell_three)
-		self.flowbox.add(cell_four)
-		self.flowbox.add(cell_five)
+		for item in data_source:
+			cell = Cell(item.get("name"), item.get("gtk_image"))
+			self.flowbox.add(cell)
