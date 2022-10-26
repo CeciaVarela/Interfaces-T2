@@ -25,5 +25,5 @@ class MainWindow(Gtk.Window):
 		self.add(scrolled)
 		
 		for item in data_source:
-			cell = Cell(item.get("name"), item.get("gtk_image"))
+			cell = Cell(item.get("name"), item.get("gtk_image"), item.get("description"))
 			self.flowbox.add(cell)

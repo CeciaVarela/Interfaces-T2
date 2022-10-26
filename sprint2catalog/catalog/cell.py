@@ -6,9 +6,10 @@ from gi.repository import Gtk
 class Cell(Gtk.EventBox):
 	name = None
 	
-	def __init__(self, name, image):
+	def __init__(self, name, image, description):
 		super().__init__()
 		self.name = name
+		self.description = description
 		box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=4)
 		box.pack_start(Gtk.Label(label=name), False, False, 0)
 		box.pack_start(image, True, True, 0)
@@ -17,10 +18,11 @@ class Cell(Gtk.EventBox):
 		
 	def on_click(self, widget, event,image):
 		 
-		description = Gtk.Label()
+		description = Gtk.Label(self.description)
 		nuevaImagen=Gtk.Image()
 		nuevaImagen.set_from_pixbuf(image.get_pixbuf())
-		
+		name = Gtk.Label(self.name)
+		"""
 		if self.name=="Mapache":
 			name=Gtk.Label("Mapache")
 			description = Gtk.Label( "Es un animal de tamaño similar al de un gato, que mide entre 40 y 70 centímetros de longitud y pesa entre 2 y 14 kilogramos. ")
@@ -38,6 +40,8 @@ class Cell(Gtk.EventBox):
 			description = Gtk.Label ("Se trata de un animal mamífero que pertenece a la familia de los bóvidos. La vaca, que forma parte de los artiodáctilos (ya que sus extremidades culminan en una cantidad par de dedos), es herbívora")
 		else:
 			description = Gtk.Label("hola")
+		"""
+
 		animal=DetailWindow(name,nuevaImagen,description)
 		animal.show_all()
 		
