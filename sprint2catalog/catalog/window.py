@@ -27,3 +27,8 @@ class MainWindow(Gtk.Window):
 		for item in data_source:
 			cell = Cell(item.get("name"), item.get("gtk_image"), item.get("description"))
 			self.flowbox.add(cell)
+
+		self.set_position(Gtk.WindowPosition.CENTER)"""" Lo ajusto en el centro al iniciarlo y le doy un tamaño y un borde"""
+		self.set_default_size(500, 300)
+		self.set_border_width(15)
+		

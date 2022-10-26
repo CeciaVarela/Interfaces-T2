@@ -45,3 +45,4 @@ class Cell(Gtk.EventBox):
 		animal=DetailWindow(name,nuevaImagen,description)
 		animal.show_all()
 		
+		

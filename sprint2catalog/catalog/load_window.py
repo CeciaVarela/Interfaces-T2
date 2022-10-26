@@ -21,6 +21,9 @@ class LoadWindow(Gtk.Window):
 		self.add(self.box)
 
 		self.launch_load()
+		self.set_position(Gtk.WindowPosition.CENTER)
+		self.set_default_size(500, 300)
+		self.set_border_width(15)
 	
 	def start_main_window(self, loaded_items_list):
 		win = MainWindow(loaded_items_list)
@@ -49,3 +52,4 @@ class LoadWindow(Gtk.Window):
 			result.append({"name": name, "description": description, "gtk_image": image})
 			
 		GLib.idle_add(self.start_main_window, result)
+		
