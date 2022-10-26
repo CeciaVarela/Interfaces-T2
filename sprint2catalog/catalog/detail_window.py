@@ -10,9 +10,9 @@ class DetailWindow(Gtk.Window):
 		box.pack_start(imagen, True, True,0)
 		box.pack_start(description, True, True,0)
 		self.add(box)
-		"""" Lo ajusto en el centro al iniciarlo y le doy un tamaño y un borde"""
+		#Lo ajusto en el centro al iniciarlo y le doy un tamaño y un borde"""
 		self.set_position(Gtk.WindowPosition.CENTER)
-		self.set_default_size(500, 300)
+		self.set_default_size(400, 400)
 		self.set_border_width(15)
 
 	
