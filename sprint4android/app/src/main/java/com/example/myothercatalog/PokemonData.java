@@ -20,6 +20,7 @@ public class PokemonData {
             error.printStackTrace();
         }
 
+
     }
 
     public String getName() { return name; }
