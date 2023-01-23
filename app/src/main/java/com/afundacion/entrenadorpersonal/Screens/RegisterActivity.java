@@ -8,10 +8,22 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.afundacion.entrenadorpersonal.MainActivity;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+
 import com.afundacion.entrenadorpersonal.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity {
     private Context context = this;
@@ -20,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText editTextPassword;
     private EditText editTextConfirmarPassword;
     private Button buttonRegister;
+    private RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +44,13 @@ public class RegisterActivity extends AppCompatActivity {
         editTextConfirmarPassword = findViewById(R.id.correct_password);
         buttonRegister = findViewById(R.id.crearCuenta);
 
+        queue = Volley.newRequestQueue(this);
+
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String username = editTextName.getText().toString().trim();
-                String email = editTextName.getText().toString().trim();
+                String email = editTextEmail.getText().toString().trim();
                 String password = editTextPassword.getText().toString().trim();
                 String confirmPassword = editTextConfirmarPassword.getText().toString().trim();
 
@@ -58,14 +73,51 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextConfirmarPassword.setError("Es necesario confirmar la contraseña");
                     return;
                 }
-                else if(!editTextPassword.equals(editTextConfirmarPassword)){
+                else if(!password.equals(confirmPassword)){
                     editTextConfirmarPassword.setError("Las contraseñas no coinciden");
                     return;
                 }
-                Intent myIntent = new Intent(context, LoginActivity.class);
+                Intent myIntent = new Intent(context, MainActivity.class);
                 context.startActivity(myIntent);
+                sendPostRequest();
             }
         });
+    }
+
+    private void sendPostRequest(){
+        JSONObject requestBody = new JSONObject();
+        try{
+            requestBody.put("name", editTextName.getText().toString());
+            requestBody.put("email", editTextEmail.getText().toString());
+            requestBody.put("password", editTextPassword.getText().toString());
+            requestBody.put("confirmdpassword", editTextConfirmarPassword.getText().toString());
+        }catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST,
+                "https://63be86bc585bedcb36af7637.mockapi.io/Users",
+                requestBody,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(context, "Cuenta registrada", Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        if (error.networkResponse == null){
+                            Toast.makeText(context, "No se pudo establecer la conexión", Toast.LENGTH_LONG).show();
+                        } else {
+                            int serverCode = error.networkResponse.statusCode;
+                            Toast.makeText(context, "El servidor respondió con: " + serverCode, Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+        );
+        this.queue.add(request);
     }
 
 }
