@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,10 +30,11 @@ public class HomeScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
         TextView timeTextView = (TextView) findViewById(R.id.text_view_time);
-        TextView caloryTextView = (TextView) findViewById(R.id.text_view_calory);
-        final String[] time = new String[1];
-        final int[] calory = new int[4];
+        TextView dateTextView = (TextView) findViewById(R.id.text_view_date);
+        TextView caloryTextView = (TextView) findViewById(R.id.text_view_caloryCount);
+        ArrayList<String> dateList = new ArrayList<String>();;
         Activity activity = this;
+        int caloriasTotales=0;
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 "https://63be86bc585bedcb36af7637.mockapi.io/Exercise",
@@ -45,13 +48,16 @@ public class HomeScreen extends AppCompatActivity {
                                 JSONObject exercise = response.getJSONObject(i);
                                 ExerciseData data = new ExerciseData(exercise);
                                 allTheExercises.add(data);
-                                calory[i] = data.getCalories();
-                                //time[0] = timeTextView.setText(data.getName().trim());
+                                dateList.add(data.getDate());
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
-                        caloryTextView.setText(calory[1]);
+                        for (int i = 0; i < allTheExercises.size(); i++){
+                            caloriasTotales += allTheExercises.get(i).getCalories();
+                        }
+                        caloryTextView.setText(caloriasTotales);
+                        dateTextView.setText(dateList.toString());
                     }
                 },
                 new Response.ErrorListener() {

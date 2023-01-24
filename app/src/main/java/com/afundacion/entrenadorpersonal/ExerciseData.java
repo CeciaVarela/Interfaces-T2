@@ -41,4 +41,5 @@ public class ExerciseData {
     public String getDate() { return date; }
 
     public String getCategory() { return category; }
+
 }
