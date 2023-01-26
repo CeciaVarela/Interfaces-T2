@@ -33,7 +33,39 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GraphView graph = (GraphView) findViewById(R.id.graph);
-        4
+        
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                "https://63be86bc585bedcb36af7637.mockapi.io/Users/1/Exercise",
+                null,
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response){
+                        List<DataPoint> ejercicios = new ArrayList<>();
+                        for(int i = 0; i<response.length();i++){
+                            try{
+                                JSONObject ejercicio = response.getJSONObject(i);
+                                DataPoint data = new DataPoint(i, ejercicio.getInt("calories"));
+                                ejercicios.add(data);
+                            }catch(JSONException jsonE){
+                                jsonE.printStackTrace();
+                            }
+                        }
+                        LineGraphSeries<DataPoint> seriePendiente = new LineGraphSeries<>(ejercicios.toArray(new
+                                DataPoint[ejercicios.size()]));
+                        graph.addSeries(seriePendiente);
+                        graph.getLegendRenderer().setVisible(true);
+
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        RequestQueue cola = Volley.newRequestQueue(this);
+        cola.add(request);
     }
     /*
     protected void onCreate(Bundle savedInstanceState) {
