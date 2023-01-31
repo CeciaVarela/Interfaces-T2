@@ -5,10 +5,10 @@
 
     <item
         android:id="@+id/home"
-        android:title="HOME"/>
+        android:title="INICIO"/>
     <item
         android:id="@+id/nuevo_ejercicio"
-        android:title="NUEVO EJERCICIO"/>
+        android:title="AÑADIR EJERCICIO"/>
 
     <item
         android:id="@+id/estadistica"
