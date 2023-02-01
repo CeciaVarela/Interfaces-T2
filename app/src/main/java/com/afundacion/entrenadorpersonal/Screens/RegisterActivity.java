@@ -77,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextConfirmarPassword.setError("Las contraseñas no coinciden");
                     return;
                 }
-                Intent myIntent = new Intent(context, MainActivity.class);
+                Intent myIntent = new Intent(context, LoginActivity.class);
                 context.startActivity(myIntent);
                 sendPostRequest();
             }

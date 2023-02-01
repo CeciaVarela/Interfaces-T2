@@ -81,8 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                         String receivedToken="";
                         String receivedTokenPassword;
                         String email = editTextEmailLog.getText().toString();
+                        String password = editTextPasswordLog.getText().toString();
                         try {
-                            if (email.equals(response.getString("email"))){
+                            if (email.equals(response.getString("email")) && password.equals(response.getString("password"))){
                                 receivedToken = response.getString("sessionToken");
                                 SharedPreferences preferences = context.getSharedPreferences("SESSIONS_APP_PREFS", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
