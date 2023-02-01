@@ -11,9 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
-import com.afundacion.entrenadorpersonal.Drawer.HomeFragment;
 import com.afundacion.entrenadorpersonal.Drawer.MainActivity;
 import com.afundacion.entrenadorpersonal.R;
 import com.android.volley.Request;
@@ -48,8 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         buttonIniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent myIntent = new Intent(context, MainActivity.class);
-                context.startActivity(myIntent);
                 startUserSession();
             }
         });
@@ -79,13 +75,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         String receivedToken="";
-                        String receivedTokenPassword;
                         String email = editTextEmailLog.getText().toString();
                         String password = editTextPasswordLog.getText().toString();
                         try {
                             if (email.equals(response.getString("email")) && password.equals(response.getString("password"))){
                                 receivedToken = response.getString("sessionToken");
-                                SharedPreferences preferences = context.getSharedPreferences("SESSIONS_APP_PREFS", MODE_PRIVATE);
+                                SharedPreferences preferences = getSharedPreferences("SESSIONS_APP_PREFS", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("VALID_EMAIL", editTextEmailLog.getText().toString());
                                 editor.putString("VALID_TOKEN", receivedToken);
