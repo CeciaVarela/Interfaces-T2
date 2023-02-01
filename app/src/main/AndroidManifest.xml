@@ -15,6 +15,13 @@
         android:theme="@style/Theme.EntrenadorPersonal"
         tools:targetApi="31">
         <activity
+            android:name=".AddExercise"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".UsersData"
             android:exported="false">
             <meta-data

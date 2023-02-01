@@ -1,11 +1,10 @@
 package com.afundacion.entrenadorpersonal;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,10 +27,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class HomeFragment extends Fragment {
+public class AddExercise extends AppCompatActivity {
 
     private final Context context = null;
-    public void onCreate(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+    public void onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         TextView timeTextViewCount = root.findViewById(R.id.text_view_timeCount);
@@ -41,7 +40,7 @@ public class HomeFragment extends Fragment {
         final int[] caloriasTotales = {0};
         final int[] idsTotales = {0};
 
-        SharedPreferences prefs =this.getActivity().getSharedPreferences("Users", Context.MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("Users", Context.MODE_PRIVATE);
         //String retrivedToken  = "token 1";
         String retrivedToken = prefs.getString("token",null);
 
@@ -57,7 +56,7 @@ public class HomeFragment extends Fragment {
                             UsersData data = new UsersData(exercise);
                             int idUsuario = data.getId();
                             JsonArrayRequest request2 = new JsonArrayRequest(
-                                    Request.Method.GET,
+                                    Request.Method.POST,
                                     "https://63be86bc585bedcb36af7637.mockapi.io/Users/"+String.valueOf(idUsuario)+"/Exercise",
                                     null,
                                     new Response.Listener<JSONArray>() {
@@ -92,7 +91,7 @@ public class HomeFragment extends Fragment {
                                     new Response.ErrorListener() {
                                         @Override
                                         public void onErrorResponse(VolleyError error) {
-                                            Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                             RequestQueue cola2 = Volley.newRequestQueue(context);
@@ -106,7 +105,7 @@ public class HomeFragment extends Fragment {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
         RequestQueue cola = Volley.newRequestQueue(context);
