@@ -18,9 +18,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -60,40 +62,36 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void startUserSession() {
-        JSONObject requestBody = new JSONObject();
-        try {
-            requestBody.put("email", editTextEmailLog.getText().toString());
-            requestBody.put("password", editTextPasswordLog.getText().toString());
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-        JsonObjectRequest request = new JsonObjectRequest(
+        JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
-                "https://63be86bc585bedcb36af7637.mockapi.io/Users?email="+editTextEmailLog,
-                requestBody,
-                new Response.Listener<JSONObject>() {
+                "https://63be86bc585bedcb36af7637.mockapi.io/Users?email="+editTextEmailLog.getText().toString(),
+                null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
+                    public void onResponse(JSONArray response) {
                         String receivedToken="";
                         String email = editTextEmailLog.getText().toString();
                         String password = editTextPasswordLog.getText().toString();
+                        int id = 0;
                         try {
-                            if (email.equals(response.getString("email")) && password.equals(response.getString("password"))){
-                                receivedToken = response.getString("sessionToken");
+                            if (email.equals(response.getJSONObject(0).getString("email")) && password.equals(response.getJSONObject(0).getString("password"))){
+                                receivedToken = response.getJSONObject(0).getString("token");
                                 SharedPreferences preferences = getSharedPreferences("SESSIONS_APP_PREFS", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("VALID_EMAIL", editTextEmailLog.getText().toString());
                                 editor.putString("VALID_TOKEN", receivedToken);
+                                editor.putInt("ID", id);
                                 editor.commit();
                                 finish();
+                                Intent myIntent = new Intent(context, MainActivity.class);
+                                context.startActivity(myIntent);
+                            }else{
+                                Toast.makeText(context, "Contraseña incorrecta: ", Toast.LENGTH_SHORT).show();
                             }
-                            Toast.makeText(context, "Contraseña incorrecta: ", Toast.LENGTH_SHORT).show();
                         }catch(JSONException e){
                             throw new RuntimeException(e);
                         }
                         Toast.makeText(context, "Token: " + receivedToken, Toast.LENGTH_SHORT).show();
-                        Intent myIntent = new Intent(context, MainActivity.class);
-                        context.startActivity(myIntent);
                     }
                 },
                 new Response.ErrorListener() {

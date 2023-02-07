@@ -17,11 +17,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.afundacion.entrenadorpersonal.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -85,23 +87,26 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void sendPostRequest(){
-        JSONObject requestBody = new JSONObject();
+        JSONArray requestBody = new JSONArray();
         try{
-            requestBody.put("name", editTextName.getText().toString());
+            requestBody.put(Integer.parseInt("name"), editTextName.getText().toString());
             requestBody.put("email", editTextEmail.getText().toString());
             requestBody.put("password", editTextPassword.getText().toString());
             requestBody.put("confirmdpassword", editTextConfirmarPassword.getText().toString());
         }catch (JSONException e) {
             throw new RuntimeException(e);
         }
-        JsonObjectRequest request = new JsonObjectRequest(
+        JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.POST,
                 "https://63be86bc585bedcb36af7637.mockapi.io/Users",
-                requestBody,
-                new Response.Listener<JSONObject>() {
+                null,
+                new Response.Listener<JSONArray>() {
                     @Override
-                    public void onResponse(JSONObject response) {
-                        Toast.makeText(context, "Cuenta registrada", Toast.LENGTH_LONG).show();
+                    public void onResponse(JSONArray response) {
+                        if (editTextEmail.length() == 0) {
+                            Toast.makeText(context, "Cuenta registrada con éxito", Toast.LENGTH_LONG).show();
+                         }
+                        Toast.makeText(context, "El email ya está registrado", Toast.LENGTH_LONG).show();
                         finish();
                     }
                 },
