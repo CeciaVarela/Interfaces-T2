@@ -1,11 +1,15 @@
 package com.afundacion.entrenadorpersonal;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.media.session.MediaSession;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.TokenWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,19 +63,21 @@ public class GraphicFragment extends Fragment {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_graphic, container, false);
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        //private MediaSession.Token token = new TokenWatcher("name");
         GraphView graph = (GraphView) view.findViewById(R.id.graph);
-
+        JSONObject exercise = null;
+        SharedPreferences prefs = requireContext().getSharedPreferences("SESSIONS_APP_PREFS", Context.MODE_PRIVATE);
+        final int id = prefs.getInt("ID", -1);
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
-                "https://63be86bc585bedcb36af7637.mockapi.io/Users/1/Exercise",
+                "https://63be86bc585bedcb36af7637.mockapi.io/Users/"+String.valueOf(id)+"/Exercise",
                 null,
                 response -> {
                     List<DataPoint> ejercicios = new ArrayList<>();
+
                     for(int i = 0; i<response.length();i++){
                         try{
                             JSONObject ejercicio = response.getJSONObject(i);
