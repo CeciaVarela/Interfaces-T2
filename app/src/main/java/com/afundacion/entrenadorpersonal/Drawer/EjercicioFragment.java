@@ -1,21 +1,24 @@
-package com.afundacion.entrenadorpersonal;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.afundacion.entrenadorpersonal.Drawer;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afundacion.entrenadorpersonal.UsersData;
+import com.afundacion.entrenadorpersonal.R;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,35 +31,39 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
-public class AddExercise extends AppCompatActivity {
-
-    private final Context context = null;
+public class EjercicioFragment extends Fragment {
     public void onCreate(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View root = inflater.inflate(R.layout.activity_add_exercise, container, false);
+        Context context = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            context = getContext();
+        }
+        View root = inflater.inflate(R.layout.fragment_ejercicio, container, false);
         EditText nameEditText = root.findViewById(R.id.exerciseName);
         EditText dateEditText = root.findViewById(R.id.exerciseDate);
         EditText durationEditText = root.findViewById(R.id.exerciseDuration);
         EditText caloriesEditText = root.findViewById(R.id.exerciseCalories);
         Spinner spinner = root.findViewById(R.id.category_spinner);
-        Button button = (Button) findViewById(R.id.button_send);
+        Button button = (Button) root.findViewById(R.id.button_send);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Do something in response to button click
             }
         });
-        ArrayAdapter<CharSequence>adapter= ArrayAdapter.createFromResource(this, R.array.exercises, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter= ArrayAdapter.createFromResource(context, R.array.exercises, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_item);
 
-        SharedPreferences prefs = getSharedPreferences("Users", Context.MODE_PRIVATE);
+        SharedPreferences prefs = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            prefs = getContext().getSharedPreferences("Users", Context.MODE_PRIVATE);
+        }
         //String retrivedToken  = "token 1";
         String retrivedToken = prefs.getString("token",null);
 
+        Context finalContext = context;
+        Context finalContext1 = context;
+        Context finalContext2 = context;
+        Context finalContext3 = context;
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
                 "https://63be86bc585bedcb36af7637.mockapi.io/Users/?token="+retrivedToken,
@@ -90,17 +97,16 @@ public class AddExercise extends AppCompatActivity {
                                 new Response.Listener<JSONObject>() {
                                     @Override
                                     public void onResponse(JSONObject response) {
-                                        Toast.makeText(context, "Ejercicio añadido" , Toast.LENGTH_LONG).show();
-                                        finish();
+                                        Toast.makeText(finalContext, "Ejercicio añadido" , Toast.LENGTH_LONG).show();
                                     }
                                 },
                                 new Response.ErrorListener() {
                                     @Override
                                     public void onErrorResponse(VolleyError error) {
-                                        Toast.makeText(context,"Error", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(finalContext1,"Error", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                        RequestQueue cola2 = Volley.newRequestQueue(context);
+                        RequestQueue cola2 = Volley.newRequestQueue(finalContext2);
                         cola2.add(request2);
                     }
 
@@ -108,10 +114,11 @@ public class AddExercise extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(finalContext3, "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
         RequestQueue cola = Volley.newRequestQueue(context);
         cola.add(request);
     }
+
 }

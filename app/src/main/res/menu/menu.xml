@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <item
+        android:id="@+id/home"
+        android:title="INICIO"/>
+    <item
+        android:id="@+id/nuevo_ejercicio"
+        android:title="AÑADIR EJERCICIO"/>
+
+    <item
+        android:id="@+id/estadistica"
+        android:title="ESTADÍSTICA"/>
+
+    <item
+        android:id="@+id/historial"
+        android:title="HISTORIAL DE EJERCICIOS"/>
+
+</menu>
