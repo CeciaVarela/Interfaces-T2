@@ -72,10 +72,11 @@ public class LoginActivity extends AppCompatActivity {
                         String receivedToken="";
                         String email = editTextEmailLog.getText().toString();
                         String password = editTextPasswordLog.getText().toString();
-                        int id = 0;
+                        int id;
                         try {
                             if (email.equals(response.getJSONObject(0).getString("email")) && password.equals(response.getJSONObject(0).getString("password"))){
                                 receivedToken = response.getJSONObject(0).getString("token");
+                                id = response.getJSONObject(0).getInt("id");
                                 SharedPreferences preferences = getSharedPreferences("SESSIONS_APP_PREFS", MODE_PRIVATE);
                                 SharedPreferences.Editor editor = preferences.edit();
                                 editor.putString("VALID_EMAIL", editTextEmailLog.getText().toString());
@@ -86,12 +87,12 @@ public class LoginActivity extends AppCompatActivity {
                                 Intent myIntent = new Intent(context, MainActivity.class);
                                 context.startActivity(myIntent);
                             }else{
-                                Toast.makeText(context, "Contraseña incorrecta: ", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Contraseña incorrecta: ", Toast.LENGTH_LONG).show();
                             }
                         }catch(JSONException e){
                             throw new RuntimeException(e);
                         }
-                        Toast.makeText(context, "Token: " + receivedToken, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Token: " + receivedToken, Toast.LENGTH_LONG).show();
                     }
                 },
                 new Response.ErrorListener() {

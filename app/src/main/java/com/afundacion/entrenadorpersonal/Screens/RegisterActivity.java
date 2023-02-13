@@ -17,11 +17,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import com.afundacion.entrenadorpersonal.R;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
         editTextConfirmarPassword = findViewById(R.id.correct_password);
         buttonRegister = findViewById(R.id.crearCuenta);
 
-        queue = Volley.newRequestQueue(this);
+        queue = Volley.newRequestQueue(context);
 
         buttonRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,11 +79,39 @@ public class RegisterActivity extends AppCompatActivity {
                     editTextConfirmarPassword.setError("Las contraseñas no coinciden");
                     return;
                 }
-                Intent myIntent = new Intent(context, LoginActivity.class);
-                context.startActivity(myIntent);
-                sendPostRequest();
+                comprobarEmail();
             }
         });
+    }
+
+
+    private void comprobarEmail() {
+        JsonArrayRequest request = new JsonArrayRequest(
+                Request.Method.GET,
+                "https://63be86bc585bedcb36af7637.mockapi.io/Users?email="+editTextEmail.getText().toString(),
+                null,
+                new Response.Listener<JSONArray>(){
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        if (response.length() > 0) {
+                            Toast.makeText(context, "El email ya está registrado", Toast.LENGTH_LONG).show();
+                        }else{
+                            sendPostRequest();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error.networkResponse == null) {
+                    Toast.makeText(context,"No se puedo establecer la conexión: " ,Toast.LENGTH_LONG).show();
+                } else {
+                    int serverCode = error.networkResponse.statusCode;
+                    Toast.makeText(context,"El servidor respondió con: " + serverCode,Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+        );
+        this.queue.add(request);
     }
 
     private void sendPostRequest(){
@@ -101,10 +131,11 @@ public class RegisterActivity extends AppCompatActivity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        if (editTextEmail.length() == 0) {
-                            Toast.makeText(context, "Cuenta registrada con éxito", Toast.LENGTH_LONG).show();
-                         }
-                        Toast.makeText(context, "El email ya está registrado", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Cuenta registrada con éxito", Toast.LENGTH_LONG).show();
+
+                        Intent myIntent = new Intent(context, LoginActivity.class);
+
+                        context.startActivity(myIntent);
                         finish();
                     }
                 },
