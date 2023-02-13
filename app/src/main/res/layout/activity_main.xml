@@ -8,6 +8,11 @@
     tools:openDrawer="start"
     tools:context=".Drawer.MainActivity">
 
+    <FrameLayout
+        android:id="@+id/frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <LinearLayout
         android:id="@+id/home_content"
         android:layout_width="match_parent"

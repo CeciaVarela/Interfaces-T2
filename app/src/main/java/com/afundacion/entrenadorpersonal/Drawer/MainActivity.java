@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nuevo_ejercicio:
                 title = "Nuevo Ejercicio";
                 fragment = new EjercicioFragment();
-                getSupportFragmentManager().beginTransaction().add(R.id.drawerLayout, new EjercicioFragment()).commit();
                 break;
             case R.id.estadistica:
                 title = "Estadística";
@@ -103,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.home_content, fragment)
+                .replace(R.id.frame, fragment)
                 .commit();
 
     }
