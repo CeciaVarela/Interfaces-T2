@@ -44,7 +44,7 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences prefs =this.getActivity().getSharedPreferences("Users", Context.MODE_PRIVATE);
         //String retrivedToken  = "token 1";
-        String retrivedToken = prefs.getString("token",null);
+        String retrivedToken = prefs.getString("token","token 1");
 
         JsonArrayRequest request = new JsonArrayRequest(
                 Request.Method.GET,
