@@ -19,6 +19,7 @@ public class UsersData {
         this.token = token;
         this.id = id;
     }
+    
 
     public UsersData(JSONObject json) {
         try {

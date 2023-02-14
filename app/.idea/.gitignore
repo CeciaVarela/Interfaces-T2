@@ -3,7 +3,13 @@
 /shelf/
 /workspace.xml
 =======
+<<<<<<< HEAD
+# Default ignored files
+/shelf/
+/workspace.xml
+=======
 # Default ignored files
 /shelf/
 /workspace.xml
 >>>>>>> 573d0d0d1e34ca6b4d89c2156f12bb0ce649424e
+>>>>>>> main

@@ -18,6 +18,7 @@ public class ExerciseData {
         this.category = category;
     }
 
+
     public ExerciseData(JSONObject json) {
         try {
             this.name = json.getString("name");
