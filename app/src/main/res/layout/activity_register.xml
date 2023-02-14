@@ -17,12 +17,12 @@
             android:id="@+id/user_name"
             android:layout_width="300dp"
             android:layout_height="60dp"
-            android:layout_marginTop="100dp"
-            android:layout_margin="10dp"
             android:layout_gravity="center"
-            android:padding="15dp"
+            android:layout_margin="10dp"
+            android:layout_marginTop="300dp"
             android:hint="Usuario"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:padding="15dp" />
 
         <EditText
             android:id="@+id/email"
@@ -40,9 +40,9 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:padding="15dp"
+            android:hint="Contraseña"
             android:inputType="textPassword"
-            android:hint="Contraseña" />
+            android:padding="15dp" />
 
         <EditText
             android:id="@+id/correct_password"
@@ -50,9 +50,9 @@
             android:layout_height="60dp"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:padding="15dp"
             android:hint="Confirmar Contraseña"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:padding="15dp" />
 
         <Button
             android:id="@+id/crearCuenta"
