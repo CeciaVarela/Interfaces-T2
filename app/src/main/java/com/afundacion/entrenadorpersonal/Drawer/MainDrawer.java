@@ -10,14 +10,13 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
 
+import com.afundacion.entrenadorpersonal.GraphicFragment;
+import com.afundacion.entrenadorpersonal.PantallaInicial.HomeFragment;
 import com.afundacion.entrenadorpersonal.R;
 import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainDrawer extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private NavigationView navigationView;
     public DrawerLayout drawerLayout;
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.main_drawer);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(findViewById(R.id.toolbar));
@@ -82,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.estadistica:
                 title = "Estadística";
-                fragment = new EstadisticaFragment();
+                fragment = new GraphicFragment();
                 break;
             case R.id.historial:
                 title = "Historial de Ejercicios";

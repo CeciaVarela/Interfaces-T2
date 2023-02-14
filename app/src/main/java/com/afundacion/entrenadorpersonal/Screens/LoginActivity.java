@@ -12,19 +12,17 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.afundacion.entrenadorpersonal.Drawer.MainActivity;
+import com.afundacion.entrenadorpersonal.Drawer.MainDrawer;
 import com.afundacion.entrenadorpersonal.R;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
     private Context context = this;
@@ -84,7 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                                 editor.putInt("ID", id);
                                 editor.commit();
                                 finish();
-                                Intent myIntent = new Intent(context, MainActivity.class);
+                                Intent myIntent = new Intent(context, MainDrawer.class);
                                 context.startActivity(myIntent);
                             }else{
                                 Toast.makeText(context, "Contraseña incorrecta: ", Toast.LENGTH_LONG).show();
