@@ -1,4 +1,4 @@
-package com.afundacion.entrenadorpersonal;
+package com.afundacion.entrenadorpersonal.PantallaInicial;
 
 import org.json.JSONException;
 import org.json.JSONObject;

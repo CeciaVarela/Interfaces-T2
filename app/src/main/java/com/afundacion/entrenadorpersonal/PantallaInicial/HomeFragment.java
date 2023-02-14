@@ -1,4 +1,4 @@
-package com.afundacion.entrenadorpersonal;
+package com.afundacion.entrenadorpersonal.PantallaInicial;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.afundacion.entrenadorpersonal.R;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
