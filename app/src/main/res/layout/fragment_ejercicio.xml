@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Drawer.MainActivity"
+    tools:context=".Drawer.MainDrawer"
     android:orientation="vertical">
 
     <EditText
@@ -70,3 +70,4 @@
         android:text="Guardar" />
 
 </LinearLayout>
+
