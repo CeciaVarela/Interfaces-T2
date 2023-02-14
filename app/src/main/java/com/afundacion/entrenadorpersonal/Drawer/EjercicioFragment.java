@@ -1,6 +1,7 @@
 package com.afundacion.entrenadorpersonal.Drawer;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -86,7 +87,7 @@ public class EjercicioFragment extends Fragment {
                                     requestBody.put("time", durationEditText.getText().toString());
                                     requestBody.put("calories", caloriesEditText.getText().toString());
                                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        requestBody.put("category", spinner.getAutofillValue().getTextValue().toString());
+                                        requestBody.put("category", spinner.getSelectedItem().toString());
                                     }
                                     requestBody.put("UserId", String.valueOf(idUsuario));
                                 } catch (JSONException e) {
@@ -100,6 +101,8 @@ public class EjercicioFragment extends Fragment {
                                             @Override
                                             public void onResponse(JSONObject response) {
                                                 Toast.makeText(finalContext, "Ejercicio añadido" , Toast.LENGTH_LONG).show();
+                                                //Intent intento = new Intent(finalContext,HomeFragment.class);
+                                                //startActivity(intento);
                                             }
                                         },
                                         new Response.ErrorListener() {
