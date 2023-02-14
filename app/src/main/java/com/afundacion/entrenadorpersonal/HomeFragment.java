@@ -29,10 +29,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
 
-    private Context context;
-
-    public void onCreate(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         TextView timeTextViewCount = root.findViewById(R.id.text_view_timeCount);
@@ -41,6 +43,7 @@ public class HomeFragment extends Fragment {
         final int[] timeTotal = {0};
         final int[] caloriasTotales = {0};
         final int[] idsTotales = {0};
+        Context finalContext=root.getContext();
 
         SharedPreferences prefs =this.getActivity().getSharedPreferences("Users", Context.MODE_PRIVATE);
         //String retrivedToken  = "token 1";
@@ -96,7 +99,7 @@ public class HomeFragment extends Fragment {
                                             Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                            RequestQueue cola2 = Volley.newRequestQueue(context);
+                            RequestQueue cola2 = Volley.newRequestQueue(finalContext);
                             cola2.add(request2);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -110,7 +113,8 @@ public class HomeFragment extends Fragment {
                         Toast.makeText(getActivity(), "Error", Toast.LENGTH_SHORT).show();
                     }
                 });
-        RequestQueue cola = Volley.newRequestQueue(context);
+        RequestQueue cola = Volley.newRequestQueue(finalContext);
         cola.add(request);
+        return root;
     }
 }
